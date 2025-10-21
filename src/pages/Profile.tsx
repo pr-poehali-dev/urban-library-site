@@ -1,289 +1,279 @@
-import Layout from '@/components/layout/Layout';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
 
-const borrowedBooks = [
-  {
-    id: 1,
-    title: 'Война и мир',
-    author: 'Лев Толстой',
-    borrowDate: '1 октября 2025',
-    returnDate: '1 ноября 2025',
-    daysLeft: 11,
-  },
-  {
-    id: 2,
-    title: 'Мастер и Маргарита',
-    author: 'Михаил Булгаков',
-    borrowDate: '15 октября 2025',
-    returnDate: '15 ноября 2025',
-    daysLeft: 25,
-  },
-];
+export default function Profile() {
+  const borrowedBooks = [
+    {
+      id: 1,
+      title: 'Норвежский лес',
+      author: 'Харуки Мураками',
+      borrowDate: '10 октября 2025',
+      returnDate: '24 октября 2025',
+      daysLeft: 3,
+    },
+    {
+      id: 2,
+      title: 'Кафка на пляже',
+      author: 'Харуки Мураками',
+      borrowDate: '15 октября 2025',
+      returnDate: '29 октября 2025',
+      daysLeft: 8,
+    },
+  ];
 
-const reservedBooks = [
-  {
-    id: 1,
-    title: 'Преступление и наказание',
-    author: 'Фёдор Достоевский',
-    queuePosition: 2,
-    estimatedDate: '5 ноября 2025',
-  },
-];
+  const reservedBooks = [
+    {
+      id: 3,
+      title: '1Q84',
+      author: 'Харуки Мураками',
+      reserveDate: '18 октября 2025',
+      availableDate: '25 октября 2025',
+    },
+  ];
 
-const readingHistory = [
-  {
-    id: 1,
-    title: 'Анна Каренина',
-    author: 'Лев Толстой',
-    completedDate: '20 сентября 2025',
-    rating: 5,
-  },
-  {
-    id: 2,
-    title: 'Евгений Онегин',
-    author: 'Александр Пушкин',
-    completedDate: '10 сентября 2025',
-    rating: 4,
-  },
-];
+  const favoriteBooks = [
+    {
+      id: 4,
+      title: 'Снежная страна',
+      author: 'Ясунари Кавабата',
+      year: 1948,
+      available: false,
+    },
+    {
+      id: 5,
+      title: 'Золотой храм',
+      author: 'Юкио Мисима',
+      year: 1956,
+      available: true,
+    },
+  ];
 
-const Profile = () => {
+  const upcomingEvents = [
+    {
+      id: 1,
+      title: 'Книжный клуб: читаем "Норвежский лес"',
+      date: '28 октября 2025',
+      time: '19:00',
+    },
+    {
+      id: 2,
+      title: 'Мастер-класс по каллиграфии',
+      date: '2 ноября 2025',
+      time: '15:00',
+    },
+  ];
+
   return (
-    <Layout>
-      <section className="py-12 bg-gradient-to-br from-primary/10 to-background">
-        <div className="container px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Личный кабинет</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">
-            Управляйте своим читательским аккаунтом
-          </p>
-        </div>
-      </section>
+    <div className="min-h-screen py-12">
+      <div className="container mx-auto px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-12">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <div>
+                <h1 className="text-4xl md:text-5xl font-bold mb-2">Личный кабинет</h1>
+                <p className="text-lg text-muted-foreground">Управляйте своими книгами и записями</p>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-3xl font-bold mb-2">
+                    АИ
+                  </div>
+                  <Badge>Активный читатель</Badge>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <section className="py-12">
-        <div className="container px-4">
-          <Tabs defaultValue="books" className="w-full">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardDescription>Книг на руках</CardDescription>
+                <CardTitle className="text-3xl">{borrowedBooks.length}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Icon name="BookOpen" size={16} />
+                  <span>Лимит: 5 книг</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardDescription>Забронировано</CardDescription>
+                <CardTitle className="text-3xl">{reservedBooks.length}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Icon name="BookMarked" size={16} />
+                  <span>Ожидают получения</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardDescription>Предстоящие события</CardDescription>
+                <CardTitle className="text-3xl">{upcomingEvents.length}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Icon name="Calendar" size={16} />
+                  <span>Записи на мероприятия</span>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Tabs defaultValue="borrowed" className="space-y-6">
             <TabsList className="grid w-full max-w-2xl grid-cols-4">
-              <TabsTrigger value="books">Книги</TabsTrigger>
-              <TabsTrigger value="history">История</TabsTrigger>
+              <TabsTrigger value="borrowed">На руках</TabsTrigger>
+              <TabsTrigger value="reserved">Брони</TabsTrigger>
+              <TabsTrigger value="favorites">Избранное</TabsTrigger>
               <TabsTrigger value="events">События</TabsTrigger>
-              <TabsTrigger value="profile">Профиль</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="books" className="mt-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div>
-                  <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                    <Icon name="BookOpen" size={24} className="text-primary" />
-                    Взятые книги ({borrowedBooks.length})
-                  </h2>
-                  <div className="space-y-4">
-                    {borrowedBooks.map((book) => (
-                      <Card key={book.id}>
-                        <CardHeader>
-                          <CardTitle className="text-lg">{book.title}</CardTitle>
-                          <CardDescription>{book.author}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-3">
-                            <div className="flex items-center justify-between text-sm">
-                              <span className="text-muted-foreground">Взято:</span>
-                              <span className="font-medium">{book.borrowDate}</span>
-                            </div>
-                            <div className="flex items-center justify-between text-sm">
-                              <span className="text-muted-foreground">Вернуть до:</span>
-                              <span className="font-medium">{book.returnDate}</span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <span className="text-sm text-muted-foreground">Осталось дней:</span>
-                              <Badge variant={book.daysLeft < 7 ? 'destructive' : 'default'}>
-                                {book.daysLeft} {book.daysLeft === 1 ? 'день' : 'дней'}
-                              </Badge>
-                            </div>
-                            <div className="flex gap-2 mt-4">
-                              <Button className="flex-1" variant="outline">
-                                Продлить
-                              </Button>
-                              <Button className="flex-1">
-                                Вернуть
-                              </Button>
-                            </div>
+            <TabsContent value="borrowed" className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Взятые книги</CardTitle>
+                  <CardDescription>Не забудьте вернуть книги вовремя</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {borrowedBooks.map((book) => (
+                    <div key={book.id} className="flex items-start justify-between gap-4 p-4 border rounded-lg">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-lg mb-1">{book.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-3">{book.author}</p>
+                        <div className="flex flex-wrap gap-3 text-sm">
+                          <div className="flex items-center gap-1">
+                            <Icon name="Calendar" size={14} className="text-muted-foreground" />
+                            <span>Взято: {book.borrowDate}</span>
                           </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                    <Icon name="Clock" size={24} className="text-primary" />
-                    Забронированные ({reservedBooks.length})
-                  </h2>
-                  <div className="space-y-4">
-                    {reservedBooks.map((book) => (
-                      <Card key={book.id}>
-                        <CardHeader>
-                          <CardTitle className="text-lg">{book.title}</CardTitle>
-                          <CardDescription>{book.author}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-3">
-                            <div className="flex items-center justify-between text-sm">
-                              <span className="text-muted-foreground">Позиция в очереди:</span>
-                              <Badge variant="secondary">{book.queuePosition}</Badge>
-                            </div>
-                            <div className="flex items-center justify-between text-sm">
-                              <span className="text-muted-foreground">Ожидаемая дата:</span>
-                              <span className="font-medium">{book.estimatedDate}</span>
-                            </div>
-                            <Button variant="outline" className="w-full mt-4">
-                              Отменить бронь
-                            </Button>
+                          <div className="flex items-center gap-1">
+                            <Icon name="Clock" size={14} className="text-muted-foreground" />
+                            <span>Вернуть до: {book.returnDate}</span>
                           </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="history" className="mt-8">
-              <h2 className="text-2xl font-bold mb-6">История чтения</h2>
-              <div className="space-y-4 max-w-3xl">
-                {readingHistory.map((book) => (
-                  <Card key={book.id}>
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <CardTitle className="text-lg">{book.title}</CardTitle>
-                          <CardDescription>{book.author}</CardDescription>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <Icon
-                              key={i}
-                              name="Star"
-                              size={16}
-                              className={i < book.rating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300'}
-                            />
-                          ))}
                         </div>
                       </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          Прочитано: {book.completedDate}
-                        </span>
-                        <Button variant="link" className="p-0 h-auto">
-                          Взять снова
+                      <div className="flex flex-col items-end gap-2">
+                        <Badge variant={book.daysLeft <= 3 ? 'destructive' : 'default'}>
+                          {book.daysLeft} дн.
+                        </Badge>
+                        <Button size="sm" variant="outline">
+                          <Icon name="RotateCcw" size={14} className="mr-2" />
+                          Продлить
                         </Button>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="events" className="mt-8">
-              <h2 className="text-2xl font-bold mb-6">Мои мероприятия</h2>
-              <Card className="max-w-3xl">
-                <CardContent className="py-16 text-center">
-                  <Icon name="CalendarOff" size={64} className="mx-auto mb-4 text-muted-foreground" />
-                  <h3 className="text-xl font-semibold mb-2">Нет записей</h3>
-                  <p className="text-muted-foreground mb-6">
-                    Вы еще не записались ни на одно мероприятие
-                  </p>
-                  <Button asChild>
-                    <a href="/events">
-                      <Icon name="Calendar" size={18} className="mr-2" />
-                      Посмотреть мероприятия
-                    </a>
-                  </Button>
+                    </div>
+                  ))}
                 </CardContent>
               </Card>
             </TabsContent>
 
-            <TabsContent value="profile" className="mt-8">
-              <div className="max-w-2xl">
-                <h2 className="text-2xl font-bold mb-6">Личные данные</h2>
-                <Card>
-                  <CardContent className="pt-6">
-                    <form className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="firstName">Имя</Label>
-                          <Input id="firstName" placeholder="Иван" />
+            <TabsContent value="reserved" className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Забронированные книги</CardTitle>
+                  <CardDescription>Книги, зарезервированные для вас</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {reservedBooks.map((book) => (
+                    <div key={book.id} className="flex items-start justify-between gap-4 p-4 border rounded-lg">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-lg mb-1">{book.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-3">{book.author}</p>
+                        <div className="flex flex-wrap gap-3 text-sm">
+                          <div className="flex items-center gap-1">
+                            <Icon name="Calendar" size={14} className="text-muted-foreground" />
+                            <span>Забронировано: {book.reserveDate}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Icon name="Clock" size={14} className="text-primary" />
+                            <span>Доступна: {book.availableDate}</span>
+                          </div>
                         </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="lastName">Фамилия</Label>
-                          <Input id="lastName" placeholder="Иванов" />
-                        </div>
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" placeholder="ivan@example.com" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="phone">Телефон</Label>
-                        <Input id="phone" type="tel" placeholder="+7 (999) 123-45-67" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="cardNumber">Номер читательского билета</Label>
-                        <Input id="cardNumber" value="LIB-2025-001234" disabled />
-                      </div>
-                      <div className="flex gap-3">
-                        <Button type="submit">
-                          <Icon name="Save" size={18} className="mr-2" />
-                          Сохранить изменения
-                        </Button>
-                        <Button type="button" variant="outline">
-                          Отмена
-                        </Button>
-                      </div>
-                    </form>
-                  </CardContent>
-                </Card>
-
-                <Card className="mt-6">
-                  <CardHeader>
-                    <CardTitle>Изменить пароль</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <form className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="currentPassword">Текущий пароль</Label>
-                        <Input id="currentPassword" type="password" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="newPassword">Новый пароль</Label>
-                        <Input id="newPassword" type="password" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="confirmPassword">Подтвердите пароль</Label>
-                        <Input id="confirmPassword" type="password" />
-                      </div>
-                      <Button type="submit">
-                        <Icon name="Lock" size={18} className="mr-2" />
-                        Изменить пароль
+                      <Button size="sm">
+                        <Icon name="CheckCircle" size={14} className="mr-2" />
+                        Получить
                       </Button>
-                    </form>
-                  </CardContent>
-                </Card>
-              </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="favorites" className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Избранные книги</CardTitle>
+                  <CardDescription>Книги, добавленные в избранное</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {favoriteBooks.map((book) => (
+                    <div key={book.id} className="flex items-start justify-between gap-4 p-4 border rounded-lg">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-lg mb-1">{book.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-2">
+                          {book.author} • {book.year}
+                        </p>
+                        <Badge variant={book.available ? 'default' : 'secondary'}>
+                          {book.available ? 'Доступна' : 'Занята'}
+                        </Badge>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button size="sm" disabled={!book.available}>
+                          <Icon name="BookMarked" size={14} className="mr-2" />
+                          Забронировать
+                        </Button>
+                        <Button size="sm" variant="ghost">
+                          <Icon name="Heart" size={14} className="text-red-500" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="events" className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Мои записи на события</CardTitle>
+                  <CardDescription>Мероприятия, на которые вы записались</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {upcomingEvents.map((event) => (
+                    <div key={event.id} className="flex items-start justify-between gap-4 p-4 border rounded-lg">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-lg mb-3">{event.title}</h3>
+                        <div className="flex flex-wrap gap-3 text-sm">
+                          <div className="flex items-center gap-1">
+                            <Icon name="Calendar" size={14} className="text-primary" />
+                            <span>{event.date}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Icon name="Clock" size={14} className="text-primary" />
+                            <span>{event.time}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <Button size="sm" variant="outline">
+                        <Icon name="X" size={14} className="mr-2" />
+                        Отменить
+                      </Button>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
             </TabsContent>
           </Tabs>
         </div>
-      </section>
-    </Layout>
+      </div>
+    </div>
   );
-};
-
-export default Profile;
+}

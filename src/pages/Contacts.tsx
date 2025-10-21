@@ -1,264 +1,270 @@
-import Layout from '@/components/layout/Layout';
-import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Icon from '@/components/ui/icon';
 
-const Contacts = () => {
+export default function Contacts() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const faqItems = [
+    {
+      question: 'Как получить читательский билет?',
+      answer: 'Для получения читательского билета необходимо обратиться на стойку регистрации с паспортом. Регистрация бесплатная и занимает около 5 минут.',
+    },
+    {
+      question: 'Сколько книг можно взять одновременно?',
+      answer: 'Читатели могут взять до 5 книг одновременно. Срок выдачи — 14 дней с возможностью продления.',
+    },
+    {
+      question: 'Можно ли продлить срок возврата книги?',
+      answer: 'Да, книгу можно продлить на 7 дней через личный кабинет на сайте или позвонив в библиотеку. Продление возможно, если на книгу нет очереди.',
+    },
+    {
+      question: 'Есть ли штрафы за просрочку?',
+      answer: 'За просрочку возврата книги взимается штраф 10 рублей за каждый день. При задержке более 30 дней читательский билет блокируется до возврата книги.',
+    },
+    {
+      question: 'Можно ли забронировать книгу онлайн?',
+      answer: 'Да, вы можете забронировать любую доступную книгу через каталог на сайте. Забронированная книга будет ждать вас в течение 3 дней.',
+    },
+    {
+      question: 'Как записаться на мероприятие?',
+      answer: 'Записаться на мероприятие можно через раздел "События и новости" на сайте, по телефону или лично в библиотеке.',
+    },
+    {
+      question: 'Есть ли в библиотеке Wi-Fi?',
+      answer: 'Да, в библиотеке доступен бесплатный Wi-Fi. Пароль можно узнать у администратора.',
+    },
+    {
+      question: 'Работает ли библиотека в праздники?',
+      answer: 'В праздничные дни библиотека работает по сокращенному графику. Актуальное расписание публикуется на сайте и в социальных сетях.',
+    },
+  ];
+
   return (
-    <Layout>
-      <section className="py-12 bg-gradient-to-br from-primary/10 to-background">
-        <div className="container px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Контакты</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">
-            Свяжитесь с нами удобным для вас способом
-          </p>
-        </div>
-      </section>
+    <div className="min-h-screen py-12">
+      <div className="container mx-auto px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Контакты</h1>
+            <p className="text-lg text-muted-foreground">Мы всегда рады помочь и ответить на ваши вопросы</p>
+          </div>
 
-      <section className="py-12">
-        <div className="container px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-2xl font-bold mb-6">Как с нами связаться</h2>
-              
-              <div className="space-y-6">
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Icon name="MapPin" size={24} className="text-primary" />
-                      </div>
-                      <div>
-                        <CardTitle>Адрес</CardTitle>
-                        <CardDescription className="mt-2">
-                          г. Москва, ул. Пушкинская, д. 10
-                          <br />
-                          Метро "Пушкинская", выход 2
-                        </CardDescription>
-                      </div>
-                    </div>
-                  </CardHeader>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Icon name="Clock" size={24} className="text-primary" />
-                      </div>
-                      <div className="flex-1">
-                        <CardTitle>Режим работы</CardTitle>
-                        <CardDescription className="mt-2">
-                          <div className="space-y-1">
-                            <div className="flex justify-between">
-                              <span>Понедельник - Пятница:</span>
-                              <span className="font-medium">9:00 - 20:00</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span>Суббота - Воскресенье:</span>
-                              <span className="font-medium">10:00 - 18:00</span>
-                            </div>
-                            <div className="flex justify-between text-destructive">
-                              <span>Санитарный день:</span>
-                              <span className="font-medium">Последний четверг месяца</span>
-                            </div>
-                          </div>
-                        </CardDescription>
-                      </div>
-                    </div>
-                  </CardHeader>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Icon name="Phone" size={24} className="text-primary" />
-                      </div>
-                      <div>
-                        <CardTitle>Телефоны</CardTitle>
-                        <CardDescription className="mt-2 space-y-1">
-                          <div>
-                            <a href="tel:+74951234567" className="hover:text-primary transition-colors">
-                              +7 (495) 123-45-67
-                            </a>{' '}
-                            — Справочная служба
-                          </div>
-                          <div>
-                            <a href="tel:+74951234568" className="hover:text-primary transition-colors">
-                              +7 (495) 123-45-68
-                            </a>{' '}
-                            — Абонемент
-                          </div>
-                          <div>
-                            <a href="tel:+74951234569" className="hover:text-primary transition-colors">
-                              +7 (495) 123-45-69
-                            </a>{' '}
-                            — Детская секция
-                          </div>
-                        </CardDescription>
-                      </div>
-                    </div>
-                  </CardHeader>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Icon name="Mail" size={24} className="text-primary" />
-                      </div>
-                      <div>
-                        <CardTitle>Email</CardTitle>
-                        <CardDescription className="mt-2 space-y-1">
-                          <div>
-                            <a href="mailto:info@library.ru" className="hover:text-primary transition-colors">
-                              info@library.ru
-                            </a>{' '}
-                            — Общие вопросы
-                          </div>
-                          <div>
-                            <a href="mailto:events@library.ru" className="hover:text-primary transition-colors">
-                              events@library.ru
-                            </a>{' '}
-                            — Мероприятия
-                          </div>
-                        </CardDescription>
-                      </div>
-                    </div>
-                  </CardHeader>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Icon name="Share2" size={24} className="text-primary" />
-                      </div>
-                      <div className="flex-1">
-                        <CardTitle>Социальные сети</CardTitle>
-                        <div className="flex gap-3 mt-4">
-                          <a
-                            href="#"
-                            className="w-10 h-10 bg-primary/10 hover:bg-primary hover:text-primary-foreground rounded-full flex items-center justify-center transition-colors"
-                            aria-label="ВКонтакте"
-                          >
-                            <Icon name="Share2" size={18} />
-                          </a>
-                          <a
-                            href="#"
-                            className="w-10 h-10 bg-primary/10 hover:bg-primary hover:text-primary-foreground rounded-full flex items-center justify-center transition-colors"
-                            aria-label="Telegram"
-                          >
-                            <Icon name="Send" size={18} />
-                          </a>
-                          <a
-                            href="#"
-                            className="w-10 h-10 bg-primary/10 hover:bg-primary hover:text-primary-foreground rounded-full flex items-center justify-center transition-colors"
-                            aria-label="Одноклассники"
-                          >
-                            <Icon name="Users" size={18} />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </CardHeader>
-                </Card>
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-bold mb-6">Напишите нам</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            <div className="space-y-6">
               <Card>
-                <CardContent className="pt-6">
-                  <form className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Имя *</Label>
-                        <Input id="name" placeholder="Ваше имя" required />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email *</Label>
-                        <Input id="email" type="email" placeholder="your@email.com" required />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Телефон</Label>
-                      <Input id="phone" type="tel" placeholder="+7 (999) 123-45-67" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="subject">Тема обращения *</Label>
-                      <Input id="subject" placeholder="Кратко опишите тему" required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Сообщение *</Label>
-                      <Textarea
-                        id="message"
-                        placeholder="Опишите ваш вопрос или предложение..."
-                        rows={6}
+                <CardHeader>
+                  <CardTitle>Форма обратной связи</CardTitle>
+                  <CardDescription>Напишите нам, и мы ответим в ближайшее время</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                      <Label htmlFor="name">Ваше имя</Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        type="text"
+                        placeholder="Иван Иванов"
+                        value={formData.name}
+                        onChange={handleChange}
                         required
                       />
                     </div>
-                    <Button type="submit" className="w-full" size="lg">
-                      <Icon name="Send" size={18} className="mr-2" />
+                    <div>
+                      <Label htmlFor="email">Email</Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="ivan@example.com"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="phone">Телефон</Label>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        placeholder="+7 (999) 123-45-67"
+                        value={formData.phone}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="message">Сообщение</Label>
+                      <Textarea
+                        id="message"
+                        name="message"
+                        placeholder="Ваше сообщение..."
+                        rows={5}
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <Button type="submit" className="w-full">
+                      <Icon name="Send" size={16} className="mr-2" />
                       Отправить сообщение
                     </Button>
-                    <p className="text-xs text-muted-foreground">
-                      * — обязательные поля. Мы ответим в течение 1-2 рабочих дней.
-                    </p>
                   </form>
                 </CardContent>
               </Card>
             </div>
-          </div>
-        </div>
-      </section>
 
-      <section className="py-12 bg-muted/30">
-        <div className="container px-4">
-          <h2 className="text-2xl font-bold mb-6 text-center">Как нас найти</h2>
-          <div className="aspect-video max-w-4xl mx-auto bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <Icon name="Map" size={64} className="mx-auto mb-4 text-primary/40" />
-              <p className="text-muted-foreground">Интерактивная карта</p>
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Контактная информация</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon name="MapPin" size={20} className="text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Адрес</h4>
+                      <p className="text-muted-foreground">г. Москва, ул. Пушкина, д. 10</p>
+                      <p className="text-sm text-muted-foreground">м. Пушкинская (5 мин пешком)</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon name="Phone" size={20} className="text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Телефон</h4>
+                      <a href="tel:+74951234567" className="text-muted-foreground hover:text-primary transition-colors">
+                        +7 (495) 123-45-67
+                      </a>
+                      <p className="text-sm text-muted-foreground">Пн-Пт: 9:00 - 21:00</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon name="Mail" size={20} className="text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Email</h4>
+                      <a
+                        href="mailto:info@library.ru"
+                        className="text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        info@library.ru
+                      </a>
+                      <p className="text-sm text-muted-foreground">Ответим в течение 24 часов</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon name="Clock" size={20} className="text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Режим работы</h4>
+                      <div className="text-muted-foreground space-y-1">
+                        <p>Понедельник - Пятница: 9:00 - 21:00</p>
+                        <p>Суббота - Воскресенье: 10:00 - 18:00</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Мы в социальных сетях</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex gap-3">
+                    <a
+                      href="#"
+                      className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                    >
+                      <Icon name="Facebook" size={24} />
+                    </a>
+                    <a
+                      href="#"
+                      className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                    >
+                      <Icon name="Instagram" size={24} />
+                    </a>
+                    <a
+                      href="#"
+                      className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                    >
+                      <Icon name="Twitter" size={24} />
+                    </a>
+                    <a
+                      href="#"
+                      className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                    >
+                      <Icon name="Youtube" size={24} />
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
-          <div className="max-w-4xl mx-auto mt-6">
-            <Card>
-              <CardContent className="pt-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                  <div>
-                    <Icon name="Car" size={32} className="mx-auto mb-2 text-primary" />
-                    <h3 className="font-semibold mb-1">На автомобиле</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Парковка рядом с библиотекой, 50 мест
-                    </p>
-                  </div>
-                  <div>
-                    <Icon name="Train" size={32} className="mx-auto mb-2 text-primary" />
-                    <h3 className="font-semibold mb-1">На метро</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Станция "Пушкинская", 5 минут пешком
-                    </p>
-                  </div>
-                  <div>
-                    <Icon name="Bus" size={32} className="mx-auto mb-2 text-primary" />
-                    <h3 className="font-semibold mb-1">На автобусе</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Остановка "Библиотека", маршруты 12, 45, 78
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-    </Layout>
-  );
-};
 
-export default Contacts;
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold mb-8">Часто задаваемые вопросы (FAQ)</h2>
+            <Accordion type="single" collapsible className="w-full">
+              {faqItems.map((item, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-left">{item.question}</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">{item.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+
+          <Card className="bg-primary text-primary-foreground">
+            <CardContent className="p-8 text-center">
+              <h3 className="text-2xl font-bold mb-4">Не нашли ответ на свой вопрос?</h3>
+              <p className="mb-6 opacity-90">
+                Свяжитесь с нами любым удобным способом, и мы обязательно вам поможем!
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center">
+                <Button size="lg" variant="secondary">
+                  <Icon name="Phone" size={20} className="mr-2" />
+                  Позвонить
+                </Button>
+                <Button size="lg" variant="secondary">
+                  <Icon name="Mail" size={20} className="mr-2" />
+                  Написать Email
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}
