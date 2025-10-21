@@ -164,12 +164,14 @@ const Catalog = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [genreFilter, setGenreFilter] = useState('all');
 
-  const filteredBooks = books.filter(book => {
-    const matchesSearch = book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         book.author.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesGenre = genreFilter === 'all' || book.genre === genreFilter;
-    return matchesSearch && matchesGenre;
-  });
+  const filteredBooks = books
+    .filter(book => {
+      const matchesSearch = book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           book.author.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesGenre = genreFilter === 'all' || book.genre === genreFilter;
+      return matchesSearch && matchesGenre;
+    })
+    .sort((a, b) => a.author.localeCompare(b.author));
 
   return (
     <Layout>
@@ -201,8 +203,7 @@ const Catalog = () => {
               <SelectContent>
                 <SelectItem value="all">Все жанры</SelectItem>
                 <SelectItem value="Классика">Классика</SelectItem>
-                <SelectItem value="Роман">Роман</SelectItem>
-                <SelectItem value="Поэзия">Поэзия</SelectItem>
+                <SelectItem value="Современная проза">Современная проза</SelectItem>
               </SelectContent>
             </Select>
             <Button className="w-full md:w-auto">
